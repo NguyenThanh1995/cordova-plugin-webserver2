@@ -53,7 +53,8 @@ public class Webserver extends CordovaPlugin {
      * @param callbackContext
      */
     private void start(JSONArray args, CallbackContext callbackContext) throws JSONException, IOException {
-        int port = 8080;
+        // random port by default
+        int port = 0;
 
         if (args.length() == 1) {
             port = args.getInt(0);
@@ -67,18 +68,21 @@ public class Webserver extends CordovaPlugin {
         try {
             this.nanoHTTPDWebserver = new NanoHTTPDWebserver(port, this);
             this.nanoHTTPDWebserver.start();
-        }catch (Exception e){
+        } catch (Exception e) {
             callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, e.getMessage()));
             return;
         }
 
-        Log.d(
-             this.getClass().getName(),
-            "Server is running on: " +
-            this.nanoHTTPDWebserver.getHostname() + ":" +
-            this.nanoHTTPDWebserver.getListeningPort()
-        );
-        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
+        String host = this.nanoHTTPDWebserver.getHostname();
+        port = this.nanoHTTPDWebserver.getListeningPort();
+
+        Log.d(this.getClass().getName(), "Server is running on: " + host + ":" + port);
+
+        JSONObject result = new JSONObject();
+        result.put("host", host);
+        result.put("port", port);
+
+        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, result));
     }
 
     /**

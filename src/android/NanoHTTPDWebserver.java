@@ -73,8 +73,7 @@ public class NanoHTTPDWebserver extends NanoHTTPD {
     }
 
     private String getContentType(JSONObject responseObject) throws JSONException {
-        if (responseObject.has("headers") &&
-                responseObject.getJSONObject("headers").has("Content-Type")) {
+        if (responseObject.has("headers") && responseObject.getJSONObject("headers").has("Content-Type")) {
             return responseObject.getJSONObject("headers").getString("Content-Type");
         } else {
             return "text/plain";
@@ -153,7 +152,6 @@ public class NanoHTTPDWebserver extends NanoHTTPD {
                     res.addHeader("ETag", etag);
                 }
             } else {
-
                 if (headerIfRangeMissingOrMatching && range != null && startFrom >= fileLen) {
                     // return the size of the file
                     // 4xx responses are not trumped by if-none-match
@@ -170,7 +168,6 @@ public class NanoHTTPDWebserver extends NanoHTTPD {
                     // range request that doesn't match current etag
                     // would return entire (different) file
                     // respond with not-modified
-
                     res = newFixedLengthResponse(Response.Status.NOT_MODIFIED, mime, "");
                     res.addHeader("ETag", etag);
                 } else {
@@ -209,8 +206,7 @@ public class NanoHTTPDWebserver extends NanoHTTPD {
 
         PluginResult pluginResult = null;
         try {
-            pluginResult = new PluginResult(
-                    PluginResult.Status.OK, this.createJSONRequest(requestUUID, session));
+            pluginResult = new PluginResult(PluginResult.Status.OK, this.createJSONRequest(requestUUID, session));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -238,10 +234,7 @@ public class NanoHTTPDWebserver extends NanoHTTPD {
                 Iterator<?> keys = responseObject.getJSONObject("headers").keys();
                 while (keys.hasNext()) {
                     String key = (String) keys.next();
-                    res.addHeader(
-                            key,
-                            responseObject.getJSONObject("headers").getString(key)
-                    );
+                    res.addHeader(key, responseObject.getJSONObject("headers").getString(key));
                 }
                 return res;
             } catch (JSONException e) {
@@ -250,24 +243,18 @@ public class NanoHTTPDWebserver extends NanoHTTPD {
             return response;
         } else {
             try {
-                response = newFixedLengthResponse(
-                        Response.Status.lookup(responseObject.getInt("status")),
-                        getContentType(responseObject),
-                        responseObject.getString("body")
-                );
+                response = newFixedLengthResponse(Response.Status.lookup(responseObject.getInt("status")), getContentType(responseObject), responseObject.getString("body"));
 
                 Iterator<?> keys = responseObject.getJSONObject("headers").keys();
                 while (keys.hasNext()) {
                     String key = (String) keys.next();
-                    response.addHeader(
-                            key,
-                            responseObject.getJSONObject("headers").getString(key)
+                    response.addHeader(key, responseObject.getJSONObject("headers").getString(key)
                     );
                 }
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
             return response;
         }
     }
