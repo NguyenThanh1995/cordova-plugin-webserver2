@@ -1,14 +1,14 @@
 {
-  "name": "cordova-plugin-webserver",
-  "version": "1.0.1",
+  "name": "cordova-plugin-webserver-enhanced",
+  "version": "1.0.0",
   "description": "Cordova Plugin Webserver",
-  "homepage": "https://github.com/bykof/cordova-plugin-webserver/",
+  "homepage": "https://github.com/arsenikstiger/cordova-plugin-webserver/",
   "author": {
-    "name": "Michael Bykovski"
+    "name": "Aurélien Sudre"
   },
   "license": "Apache-2.0",
   "cordova": {
-    "id": "cordova-plugin-webserver",
+    "id": "cordova-plugin-webserver-enhanced",
     "platforms": [
       "ios",
       "android"
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bykof/cordova-plugin-webserver"
+    "url": "https://github.com/arsenikstiger/cordova-plugin-webserver"
   },
   "keywords": [
     "cordova",
